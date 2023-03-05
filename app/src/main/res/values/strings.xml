@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fragments</string>
+    <string name="i_m_a_fragment">I\'m a fragment</string>
+    <string name="bla_bla">bla bla</string>
 </resources>
