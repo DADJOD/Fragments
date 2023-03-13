@@ -12,10 +12,3 @@ object Logger {
         Log.d("happyX", "$some")
     }
 }
-
-//object Logger {
-//    fun logMe() {
-//        val stack = Thread.currentThread().stackTrace
-//        Log.d("happy", stack[3].className + " " + stack[3].methodName)
-//    }
-//}

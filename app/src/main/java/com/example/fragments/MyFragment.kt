@@ -14,22 +14,23 @@ class MyFragment: Fragment() {
     private lateinit var parameterView: TextView
 
     companion object {
+
+        // this code will work in Activity
+        fun getInstance(parameter: String): MyFragment {
+            val bundleForFragment = Bundle()                         // for send key\values
+            bundleForFragment.putString(PARAMETER, parameter)
+
+            val fragment = MyFragment()
+            fragment.arguments = bundleForFragment
+
+            return fragment
+        }
+
         const val PARAMETER = "param1"
     }
 
-    // this code will work in Activity
-    fun getInstance(parameter: String) : MyFragment {
-        val bundleForFragment = Bundle()                         // for send key\values
-        bundleForFragment.putString(PARAMETER, parameter)
-
-        val fragment = MyFragment()
-        fragment.arguments = bundleForFragment
-
-        return fragment
-    }
-
     // this code will work inside MyFragment
-    fun getParameter(): String? {
+    private fun getParameter(): String? {
         val bundleForFragment = arguments                            // get fragment exp: qqq
         if (bundleForFragment != null && bundleForFragment.containsKey(PARAMETER)) {
             return bundleForFragment.getString(PARAMETER)            // get fragment with key "param1"
@@ -37,18 +38,13 @@ class MyFragment: Fragment() {
         return "no parameter"
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-
-        Logger.logMe()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Logger.logMe()
 
         Logger.logSomething("onCreate ${hashCode()}")
+
+        retainInstance    // will save fragment and object
     }
 
     override fun onCreateView(
@@ -70,6 +66,11 @@ class MyFragment: Fragment() {
         // findViewById will be here
         Logger.logMe()
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Logger.logMe()
     }
 
     @SuppressLint("SetTextI18n")
