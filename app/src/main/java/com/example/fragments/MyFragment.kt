@@ -1,5 +1,6 @@
 package com.example.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -71,45 +72,10 @@ class MyFragment: Fragment() {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        Logger.logMe()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Logger.logMe()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Logger.logMe()
-
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Logger.logMe()
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Logger.logMe()
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.logMe()
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Logger.logMe()
-
+    @SuppressLint("SetTextI18n")
+    fun setMessage(msg: String) {
+        if (parameterView != null) {
+            parameterView.text = "${parameterView.text.toString()} | $msg"
+        }
     }
 }

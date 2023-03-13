@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var fragment: MyFragment
     private lateinit var transaction: FragmentTransaction
     private lateinit var nest: FrameLayout
 
@@ -21,8 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Logger.logMe()
 
+        val manager = supportFragmentManager        // give fragmentManager
+
         if (nest.childCount == 0) {
-            val manager = supportFragmentManager        // give fragmentManager
             transaction = manager.beginTransaction()    // start transaction
 
 //            val bundleForFragment = Bundle()                // for send key\values
@@ -34,23 +36,21 @@ class MainActivity : AppCompatActivity() {
 //            transaction.add(R.id.nest, fragment)        // add or remove fragments
 //            transaction.commit()                        // finish transaction
 
-            val fragment = MyFragment().getInstance("qqq ${hashCode()}")
+            fragment = MyFragment().getInstance("qqq ${hashCode()}")
 
             transaction.add(R.id.nest, fragment)        // add or remove fragments
             transaction.commit()                        // finish transaction
         } else {
             Logger.logSomething("already have the fragment")
+
+            fragment = manager.findFragmentById(R.id.nest) as MyFragment
         }
     }
 
     override fun onResume() {
         super.onResume()
         Logger.logMe()
-    }
 
-    override fun onStop() {
-        super.onStop()
-        Logger.logMe()
+        fragment.setMessage("added")
     }
-
 }
